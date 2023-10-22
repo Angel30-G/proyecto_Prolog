@@ -6,40 +6,64 @@ infects(flor, rosa).
 infects(rosa, gloria).
 infects(jose, flor).
 
+%Hechos de que una persona tiene sintomas
+
+tiene_fiebre(maria).
+tiene_fiebre(julia).
+tiene_tos(maria).
+tiene_tos(julia).
+tiene_dificultad_respirar(maria).
+
+
+
 % Reglas para determinar si alguien está infectado por COVID-19
 esta_infectado(Persona) :-
     tiene_fiebre(Persona),
     tiene_tos(Persona),
     tiene_dificultad_respirar(Persona).
 
-% Hechos que representan los síntomas de una persona
-tiene_fiebre(juan).
-tiene_tos(juan).
-tiene_dificultad_respirar(juan).
 
-tiene_fiebre(maria).
-tiene_tos(maria).
-tiene_dificultad_respirar(maria).
+esta_infectado(Persona) :-
+    tiene_fiebre(Persona),
+    tiene_tos(Persona),
+    tiene_dificultad_respirar(Persona).
 
-tiene_fiebre(luis).
-tiene_tos(luis).
+puede_contagiar(Persona1, Persona2) :-
+    infects(Persona1, Persona2),
+    tiene_fiebre(Persona1),
+    tiene_tos(Persona1).
 
-% Ejemplos de consulta
-% Para verificar si alguien está infectado, consulta esta_infectado/1
-% Ejemplo: ¿Juan está infectado por COVID-19?
-% Luego, puedes hacer consultas similares para otras personas.
+esta_en_cuarentena(Persona) :-
+    esta_infectado(Persona);
+    (infects(OtraPersona, Persona), esta_infectado(OtraPersona)).
 
-% ¿Juan está infectado por COVID-19?
-% Debe devolver "true" porque tiene fiebre, tos y dificultad para respirar.
-?- esta_infectado(juan).
+es_contacto_estrecho(Persona1, Persona2) :-
+    infects(Persona1, Persona2);
+    infects(Persona2, Persona1).
 
-% ¿Maria está infectada por COVID-19?
-% Debe devolver "true" por las mismas razones que Juan.
-?- esta_infectado(maria).
 
-% ¿Luis está infectado por COVID-19?
-% Debe devolver "false" porque le falta la dificultad para respirar.
-?- esta_infectado(luis).
+
+puede_contagiar_indirectamente(Persona1, Persona2) :-
+    infects(Persona1, PersonaIntermedia),
+    puede_contagiar_indirectamente(PersonaIntermedia, Persona2).
+puede_contagiar_indirectamente(Persona1, Persona2) :-
+    infects(Persona1, Persona2).
+
+esta_en_cuarentena_por_contacto(Persona) :-
+    infects(PersonaInfectada, Persona),
+    esta_en_cuarentena(PersonaInfectada).
+esta_en_cuarentena_por_contacto(persona) :-
+    infects(PersonaInfectada, PersonaIntermedia),
+    esta_en_cuarentena(PersonaInfectada),
+    esta_en_cuarentena_por_contacto(PersonaIntermedia).
+
+es_contacto_estrecho_indirecto(Persona1, Persona2) :-
+    infects(Persona1, PersonaIntermedia),
+    es_contacto_estrecho_indirecto(PersonaIntermedia, Persona2).
+es_contacto_estrecho_indirecto(Persona1, Persona2) :-
+    es_contacto_estrecho(Persona1, Persona2).
+
+
 
 
 
