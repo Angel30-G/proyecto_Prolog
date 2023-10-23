@@ -11,7 +11,8 @@ public class Proyecto {
 
     public static void main(String[] args) {
         infectados infectado = new infectados();
-        hechos hecho = new hechos();
+        reglas regla = new reglas();
+        sintomas sintoma = new sintomas();
         
         System.out.println("Personas infectadas");
         infectado.valoresX();
@@ -19,15 +20,28 @@ public class Proyecto {
         System.out.println("Personas Contagiadas");
         infectado.valoresY();
         
+        System.out.println("Personas con Sintomas:");
+        System.out.println("Personas con Fiebre:");
+        sintoma.fiebre();
+        System.out.println("Personas con Tos:");
+        sintoma.tos();
+        System.out.println("Personas con Dificultades para respirar:");
+        sintoma.dificultad_respirar();
+        
+        
         System.out.println("Consultas:");
         //Personas que contagiaron a otra
-        hecho.contagiar();
+        regla.contagiar();
         
         //Persona que esta en cuarenta
-        hecho.cuarentena();
+        regla.cuarentena();
         
         //Personas que han tenido contacto con otras
-        hecho.contacto();
+        regla.contacto();
+        
+        
+        regla.contagiar_indirectamente();
+       
         
        
     }
