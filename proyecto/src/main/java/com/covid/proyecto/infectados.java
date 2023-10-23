@@ -31,5 +31,18 @@ public class infectados {
             System.out.println(res[i].get("Y"));
         }
     }
+      
+       public void valoresX() {
+        Query q = new Query("consult('covid-19.pl')");
+        q.hasSolution();
+        
+        q = new Query("infects(X, Y)");
+        
+        Map<String, Term>[] res = q.allSolutions();
+        
+        for(int i = 0; i< res.length; i++){
+            System.out.println(res[i].get("X"));
+        }
+    }
     
 }

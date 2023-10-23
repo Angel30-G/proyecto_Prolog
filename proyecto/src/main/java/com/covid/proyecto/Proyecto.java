@@ -11,9 +11,17 @@ public class Proyecto {
 
     public static void main(String[] args) {
         infectados infectado = new infectados();
+        hechos hecho = new hechos();
         
+        System.out.println("Personas infectadas");
+        infectado.valoresX();
+        
+        System.out.println("Personas Contagiadas");
         infectado.valoresY();
         
-        System.out.println("Hello World!");
+        System.out.println("Consultas:");
+        hecho.consultas();
+        
+       
     }
 }
