@@ -20,7 +20,14 @@ public class Proyecto {
         infectado.valoresY();
         
         System.out.println("Consultas:");
-        hecho.consultas();
+        //Personas que contagiaron a otra
+        hecho.contagiar();
+        
+        //Persona que esta en cuarenta
+        hecho.cuarentena();
+        
+        //Personas que han tenido contacto con otras
+        hecho.contacto();
         
        
     }

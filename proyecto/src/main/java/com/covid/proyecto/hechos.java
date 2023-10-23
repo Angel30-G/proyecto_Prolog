@@ -18,7 +18,7 @@ public class hechos {
            
        }
         
-     public void consultas() {
+     public void contagiar() {
          
           // Inicializa JPL
         String[] jplArgs = {"-g", "true"};
@@ -46,6 +46,54 @@ public class hechos {
         
 
     }
+     
+         public void cuarentena() {
+         
+          // Inicializa JPL
+        String[] jplArgs = {"-g", "true"};
+        org.jpl7.JPL.init(jplArgs);
+
+        // Cargar el archivo Prolog
+        Query loadQuery = new Query("consult('covid-19.pl')");
+   
+
+        // Realizar consultas para recuperar hechos específicos
+        Query q1 = new Query("esta_en_cuarentena(Persona)");
+        Map<String, Term>[] res2 = q1.allSolutions();
+
+        for (int i = 0; i < res2.length; i++) {
+            Term persona1 = res2[i].get("Persona");
+            System.out.println("Esta persona esta en cuarentena: " + persona1.toString());
+        }
+
+        
+
+    }
+         
+        public void contacto() {
+         
+          // Inicializa JPL
+        String[] jplArgs = {"-g", "true"};
+        org.jpl7.JPL.init(jplArgs);
+
+        // Cargar el archivo Prolog
+        Query loadQuery = new Query("consult('covid-19.pl')");
+ 
+        // Realizar consultas para recuperar hechos específicos
+        Query q1 = new Query("es_contacto_estrecho(Persona1, Persona2)");
+        Map<String, Term>[] res3 = q1.allSolutions();
+
+        for (int i = 0; i < res3.length; i++) {
+            Term persona1 = res3[i].get("Persona1");
+            Term persona2 = res3[i].get("Persona2");
+            System.out.println("Han tenido contacto: " + persona1.toString() + " y " + persona2.toString());
+        }
+
+        
+
+    }
+       
+       
        
 
     
