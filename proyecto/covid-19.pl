@@ -14,6 +14,16 @@ tiene_tos(julia).
 tiene_dificultad_respirar(maria).
 tiene_dificultad_respirar(rosa).
 
+%Hechos sobre la vacuna
+Pfizer(Persona).
+moderna(Persona).
+johnson(Persona).
+
+
+
+
+
+
 
 % Reglas para determinar si alguien está infectado por COVID-19
 esta_infectado(Persona) :-
@@ -65,7 +75,7 @@ es_contacto_estrecho_indirecto(Persona1, Persona2) :-
 
 % Regla para determinar si alguien fue vacunado con Pfizer
 fue_vacunado_pfizer(Persona) :-
-    pfizer(Persona).
+    Pfizer(Persona).
 
 % Regla para determinar si alguien fue vacunado con Moderna
 fue_vacunado_moderna(Persona) :-
