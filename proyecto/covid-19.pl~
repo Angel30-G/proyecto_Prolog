@@ -1,3 +1,8 @@
+% Hechos para la regla "esta_infectado(Persona)"
+esta_infectado(juan).
+esta_infectado(maria).
+esta_infectado(pedro).
+
 %Hechos de personas infectadas
 infects(maria, pedro).
 infects(pedro, julia).
@@ -6,7 +11,6 @@ infects(rosa, gloria).
 infects(jose, flor).
 
 %Hechos de que una persona tiene sintomas
-
 tiene_fiebre(maria).
 tiene_fiebre(julia).
 tiene_tos(maria).
@@ -14,29 +18,54 @@ tiene_tos(julia).
 tiene_dificultad_respirar(maria).
 tiene_dificultad_respirar(rosa).
 
-%Hechos sobre la vacuna
-Pfizer(Persona).
+
+%Hechos de dosis de vacuna
+primera_dosis(carlos).
+primera_dosis(laura).
+segunda_dosis(carlos).
+segunda_dosis(laura).
+
+% Hechos de pruebas de COVID-19
+resultado_prueba_covid(maria, positivo).
+resultado_prueba_covid(carlos, negativo).
+resultado_prueba_covid(julio, positivo).
+resultado_prueba_covid(laura, negativo).
+
+% Hechos de condiciones de salud subyacentes
+tiene_diabetes(pedro).
+tiene_enfermedad_cardiaca(ana).
+tiene_enfermedad_pulmonar_cronica(julia).
+
+% Hechos adicionales para la regla "esta_en_cuarentena"
+esta_en_cuarentena(juan).
+esta_en_cuarentena(maria).
+esta_en_cuarentena(carlos).
+
+% Hechos adicionales para la regla "paso_tiempo_suficiente_desde_ultima_dosis"
+paso_tiempo_suficiente_desde_ultima_dosis(juan).
+paso_tiempo_suficiente_desde_ultima_dosis(maria).
+paso_tiempo_suficiente_desde_ultima_dosis(carlos).
+
+% Hechos adicionales para la regla "paso_tiempo_suficiente_desde_ultima_prueba"
+paso_tiempo_suficiente_desde_ultima_prueba(juan).
+paso_tiempo_suficiente_desde_ultima_prueba(maria).
+paso_tiempo_suficiente_desde_ultima_prueba(carlos).
 
 
 
+% Regla para determinar si alguien está infectado por COVID-19
+persona_infectada(Persona) :-
+    dio_positivo_covid(Persona).
 
-
-% Reglas para determinar si alguien está infectado por COVID-19
-esta_infectado(Persona) :-
-    tiene_fiebre(Persona),
-    tiene_tos(Persona),
-    tiene_dificultad_respirar(Persona).
 
 %Regla para saber si una persona contagió a otra
 puede_contagiar(Persona1, Persona2) :-
     infects(Persona1, Persona2),
     tiene_fiebre(Persona1),
-    tiene_tos(Persona1).
+    tiene_tos(Persona1),
+    tiene_dificultad_respirar(Persona1).
 
-%Regla para saber si una persona esta en cuarentena
-esta_en_cuarentena(Persona) :-
-    esta_infectado(Persona);
-    (infects(OtraPersona, Persona), esta_infectado(OtraPersona)).
+
 
 % Regla que supervisa si una persona tiene un contacto directo con
 % alguien infectado
@@ -62,24 +91,13 @@ esta_en_cuarentena_por_contacto(persona) :-
     esta_en_cuarentena(PersonaInfectada),
     esta_en_cuarentena_por_contacto(PersonaIntermedia).
 
-
+% Regla que supervisa si una persona tiene un contacto estrecho indirecto con
+% alguien infectado
 es_contacto_estrecho_indirecto(Persona1, Persona2) :-
     infects(Persona1, PersonaIntermedia),
     es_contacto_estrecho_indirecto(PersonaIntermedia, Persona2).
 es_contacto_estrecho_indirecto(Persona1, Persona2) :-
     es_contacto_estrecho(Persona1, Persona2).
-
-% Regla para determinar si alguien fue vacunado con Pfizer
-fue_vacunado_pfizer(Persona) :-
-    Pfizer(Persona).
-
-% Regla para determinar si alguien fue vacunado con Moderna
-fue_vacunado_moderna(Persona) :-
-    moderna(Persona).
-
-% Regla para determinar si alguien fue vacunado con Johnson & Johnson
-fue_vacunado_johnson(Persona) :-
-    johnson(Persona).
 
 % Regla para determinar si alguien ha recibido ambas dosis de la vacuna
 recibio_dosis_completa(Persona) :-
@@ -118,6 +136,46 @@ necesita_prueba_covid(Persona) :-
 necesita_prueba_seguimiento_covid(Persona) :-
     dio_positivo_covid(Persona),
     paso_tiempo_suficiente_desde_ultima_prueba(Persona).
+
+% Regla para determinar si alguien tiene síntomas de COVID-19
+tiene_sintomas_covid(Persona) :-
+    tiene_fiebre(Persona);
+    tiene_tos(Persona);
+    tiene_dificultad_respirar(Persona).
+
+% Regla para determinar si alguien esta vacunado
+esta_vacunado(Persona) :-
+    fue_vacunado_pfizer(Persona);
+    fue_vacunado_moderna(Persona);
+    fue_vacunado_johnson(Persona).
+
+% Regla para determinar si alguien es de alto riesgo
+es_alto_riesgo(Persona) :-
+    tiene_condicion_salud_subyacente(Persona);
+    not(esta_vacunado(Persona)).
+
+% Regla para determinar si alguien necesita entrar en cuarentena
+necesita_cuarentena(Persona) :-
+    esta_infectado(Persona);
+    esta_en_cuarentena_por_contacto(Persona).
+
+% Regla para determinar si alguien puede salir de cuarentena
+puede_salir_de_cuarentena(Persona) :-
+    esta_en_cuarentena(Persona),
+    paso_tiempo_suficiente_desde_ultima_prueba(Persona),
+    dio_negativo_covid(Persona).
+
+% Regla para rastrear la cadena de infecciones
+spread_disease(Persona1, Persona2, _) :-
+    infects(Persona1, Persona2).
+
+spread_disease(Persona1, Persona2, Visitados) :-
+    infects(Persona1, PersonaIntermedia),
+    not(member(PersonaIntermedia, Visitados)),
+    spread_disease(PersonaIntermedia, Persona2, [PersonaIntermedia | Visitados]).
+
+
+
 
 
 
