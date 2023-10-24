@@ -13,6 +13,7 @@ public class Proyecto {
         infectados infectado = new infectados();
         reglas regla = new reglas();
         sintomas sintoma = new sintomas();
+        vacunas vacuna = new vacunas();
         
         System.out.println("Personas infectadas");
         infectado.valoresX();
@@ -41,6 +42,20 @@ public class Proyecto {
         
         
         regla.contagiar_indirectamente();
+        
+        
+        System.out.println("Consultas de las vacunas:");
+        vacuna.fizer();
+        vacuna.moderna();
+        vacuna.johnson();
+        vacuna.dosis_completa();
+        vacuna.dosis_refuerzo();
+        vacuna.problemas_salud();
+        vacuna.prueba_covid();
+        vacuna.prueba_covid_positivo();
+        vacuna.prueba_covid_negativo();
+        vacuna.prueba_covid_sugerida();
+        vacuna.prueba_covid_seguimiento();
        
         
        
