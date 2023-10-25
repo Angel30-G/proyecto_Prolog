@@ -44,14 +44,8 @@ public class Proyecto {
         
         
         System.out.println("Consultas de las vacunas:");
-        vacuna.dosis_completa();
-        vacuna.dosis_refuerzo();
-        vacuna.problemas_salud();
-        vacuna.prueba_covid();
-        vacuna.prueba_covid_positivo();
-        vacuna.prueba_covid_negativo();
-        vacuna.prueba_covid_sugerida();
-        vacuna.prueba_covid_seguimiento();
+        regla.dio_negativo_covid();
+        regla.dio_positivo_covid();
        
         
        
