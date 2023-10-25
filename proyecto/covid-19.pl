@@ -73,11 +73,18 @@ puede_contagiar(Persona1, Persona2) :-
     tiene_tos(Persona1),
     tiene_dificultad_respirar(Persona1).
 
-
+% Regla que desmuestra que personas estan en cuarentena por presentar
+% sintomas
 en_cuarentena_por_sintomas(Persona) :-
     esta_infectado(Persona),
     (tiene_fiebre(Persona); tiene_tos(Persona); tiene_dificultad_respirar(Persona)),
     esta_en_cuarentena(Persona).
+
+%Regla para demostrar que una persona tiene sintomas graves
+tiene_sintomas_graves(Persona) :-
+    tiene_dificultad_respirar(Persona);
+    (tiene_fiebre(Persona), tiene_tos(Persona)).
+
 
 
 % Regla que supervisa si una persona tiene un contacto directo con
@@ -112,6 +119,12 @@ recibio_dosis_completa(Persona) :-
 elegible_para_refuerzo(Persona) :-
     recibio_dosis_completa(Persona),
     paso_tiempo_suficiente_desde_ultima_dosis(Persona).
+
+puede_recibir_vacuna_refuerzo(Persona) :-
+    recibio_dosis_completa(Persona),
+    paso_tiempo_suficiente_desde_ultima_dosis(Persona),
+    not(tiene_condicion_salud_subyacente(Persona)).
+
 
 % Regla para determinar si alguien tiene una condici�n de salud subyacente
 tiene_condicion_salud_subyacente(Persona) :-
