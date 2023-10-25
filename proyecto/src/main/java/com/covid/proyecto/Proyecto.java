@@ -43,6 +43,8 @@ public class Proyecto {
         
         regla.contagiar_indirectamente();
         
+        regla.cuarentena_por_contacto();
+        
         
         System.out.println("Consultas de las vacunas:");
         vacuna.fizer();
