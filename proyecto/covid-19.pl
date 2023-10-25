@@ -61,12 +61,12 @@ paso_tiempo_suficiente_desde_ultima_prueba(carlos).
 
 
 
-% Regla para determinar si alguien está infectado por COVID-19
+% Regla para determinar si alguien estï¿½ infectado por COVID-19
 persona_infectada(Persona) :-
     dio_positivo_covid(Persona).
 
 
-%Regla para saber si una persona contagió a otra
+%Regla para saber si una persona contagiï¿½ a otra
 puede_contagiar(Persona1, Persona2) :-
     infects(Persona1, Persona2),
     tiene_fiebre(Persona1),
@@ -87,7 +87,7 @@ es_contacto_estrecho(Persona1, Persona2) :-
     infects(Persona2, Persona1).
 
 
-%Regla para saber si se contagió a alguien indirectamente
+%Regla para saber si se contagiï¿½ a alguien indirectamente
 puede_contagiar_indirectamente(Persona1, Persona2) :-
     infects(Persona1, PersonaIntermedia),
     puede_contagiar_indirectamente(PersonaIntermedia, Persona2).
@@ -113,7 +113,7 @@ elegible_para_refuerzo(Persona) :-
     recibio_dosis_completa(Persona),
     paso_tiempo_suficiente_desde_ultima_dosis(Persona).
 
-% Regla para determinar si alguien tiene una condición de salud subyacente
+% Regla para determinar si alguien tiene una condiciï¿½n de salud subyacente
 tiene_condicion_salud_subyacente(Persona) :-
     tiene_diabetes(Persona);
     tiene_enfermedad_cardiaca(Persona);
@@ -141,22 +141,16 @@ necesita_prueba_seguimiento_covid(Persona) :-
     dio_positivo_covid(Persona),
     paso_tiempo_suficiente_desde_ultima_prueba(Persona).
 
-% Regla para determinar si alguien tiene síntomas de COVID-19
+% Regla para determinar si alguien tiene sï¿½ntomas de COVID-19
 tiene_sintomas_covid(Persona) :-
     tiene_fiebre(Persona);
     tiene_tos(Persona);
     tiene_dificultad_respirar(Persona).
 
-% Regla para determinar si alguien esta vacunado
-esta_vacunado(Persona) :-
-    fue_vacunado_pfizer(Persona);
-    fue_vacunado_moderna(Persona);
-    fue_vacunado_johnson(Persona).
-
 % Regla para determinar si alguien es de alto riesgo
 es_alto_riesgo(Persona) :-
     tiene_condicion_salud_subyacente(Persona);
-    not(esta_vacunado(Persona)).
+    not(recibio_dosis_completa(Persona)).
 
 % Regla para determinar si alguien necesita entrar en cuarentena
 necesita_cuarentena(Persona) :-
