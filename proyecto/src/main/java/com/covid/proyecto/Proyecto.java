@@ -47,9 +47,6 @@ public class Proyecto {
         
         
         System.out.println("Consultas de las vacunas:");
-        vacuna.fizer();
-        vacuna.moderna();
-        vacuna.johnson();
         vacuna.dosis_completa();
         vacuna.dosis_refuerzo();
         vacuna.problemas_salud();

@@ -156,7 +156,7 @@ es_alto_riesgo(Persona) :-
 
 % Regla para determinar si alguien necesita entrar en cuarentena
 necesita_cuarentena(Persona) :-
-    esta_infectado(Persona);
+    persona_infectada(Persona);
     esta_en_cuarentena_por_contacto(Persona).
 
 % Regla para determinar si alguien puede salir de cuarentena

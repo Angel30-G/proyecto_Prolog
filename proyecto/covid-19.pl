@@ -81,15 +81,6 @@ puede_contagiar_indirectamente(Persona1, Persona2) :-
 puede_contagiar_indirectamente(Persona1, Persona2) :-
     infects(Persona1, Persona2).
 
-% Regla que define si alguien esta en cuarentena por estar en contacto
-% con alguien infectado
-esta_en_cuarentena_por_contacto(Persona) :-
-    infects(PersonaInfectada, Persona),
-    esta_en_cuarentena(PersonaInfectada).
-esta_en_cuarentena_por_contacto(persona) :-
-    infects(PersonaInfectada, PersonaIntermedia),
-    esta_en_cuarentena(PersonaInfectada),
-    esta_en_cuarentena_por_contacto(PersonaIntermedia).
 
 % Regla que supervisa si una persona tiene un contacto estrecho indirecto con
 % alguien infectado
