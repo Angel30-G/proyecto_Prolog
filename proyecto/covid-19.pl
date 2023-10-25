@@ -18,7 +18,6 @@ tiene_tos(julia).
 tiene_dificultad_respirar(maria).
 tiene_dificultad_respirar(rosa).
 
-
 %Hechos de dosis de vacuna
 primera_dosis(carlos).
 primera_dosis(laura).
@@ -30,8 +29,6 @@ prueba_covid(maria).
 prueba_covid(carlos).
 prueba_covid(julio).
 prueba_covid(laura).
-
-
 
 % Hechos de pruebas de COVID-19
 resultado_prueba_covid(maria, positivo).
@@ -60,11 +57,9 @@ paso_tiempo_suficiente_desde_ultima_prueba(maria).
 paso_tiempo_suficiente_desde_ultima_prueba(carlos).
 
 
-
 % Regla para determinar si alguien est� infectado por COVID-19
 persona_infectada(Persona) :-
     dio_positivo_covid(Persona).
-
 
 %Regla para saber si una persona contagi� a otra
 puede_contagiar(Persona1, Persona2) :-
@@ -85,14 +80,11 @@ tiene_sintomas_graves(Persona) :-
     tiene_dificultad_respirar(Persona);
     (tiene_fiebre(Persona), tiene_tos(Persona)).
 
-
-
 % Regla que supervisa si una persona tiene un contacto directo con
 % alguien infectado
 es_contacto_estrecho(Persona1, Persona2) :-
     infects(Persona1, Persona2);
     infects(Persona2, Persona1).
-
 
 %Regla para saber si se contagi� a alguien indirectamente
 puede_contagiar_indirectamente(Persona1, Persona2) :-
@@ -100,7 +92,6 @@ puede_contagiar_indirectamente(Persona1, Persona2) :-
     puede_contagiar_indirectamente(PersonaIntermedia, Persona2).
 puede_contagiar_indirectamente(Persona1, Persona2) :-
     infects(Persona1, Persona2).
-
 
 % Regla que supervisa si una persona tiene un contacto estrecho indirecto con
 % alguien infectado
@@ -119,12 +110,6 @@ recibio_dosis_completa(Persona) :-
 elegible_para_refuerzo(Persona) :-
     recibio_dosis_completa(Persona),
     paso_tiempo_suficiente_desde_ultima_dosis(Persona).
-
-puede_recibir_vacuna_refuerzo(Persona) :-
-    recibio_dosis_completa(Persona),
-    paso_tiempo_suficiente_desde_ultima_dosis(Persona),
-    not(tiene_condicion_salud_subyacente(Persona)).
-
 
 % Regla para determinar si alguien tiene una condici�n de salud subyacente
 tiene_condicion_salud_subyacente(Persona) :-
@@ -184,13 +169,3 @@ spread_disease(Persona1, Persona2, Visitados) :-
     infects(Persona1, PersonaIntermedia),
     not(member(PersonaIntermedia, Visitados)),
     spread_disease(PersonaIntermedia, Persona2, [PersonaIntermedia | Visitados]).
-
-
-
-
-
-
-
-
-
-
