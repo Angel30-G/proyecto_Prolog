@@ -276,4 +276,73 @@ public class reglas {
         }
 
     }
+
+    public void es_alto_riesgo() {
+        // Inicializa conexion por medio de JPL
+        if(!conexion_pl()) {
+            return;
+        }
+
+        // Realizar consultas para recuperar reglas específicos
+        Query q1 = new Query("es_alto_riesgo(Persona)");
+        Map<String, Term>[] res = q1.allSolutions();
+
+        for(int i = 0; i < res.length; i++) {
+            Term persona1 = res[i].get("Persona");
+            System.out.println("Persona que es de alto riesgo: " + persona1.toString());
+        }
+
+    }
+
+    public void necesita_cuarentena() {
+        // Inicializa conexion por medio de JPL
+        if(!conexion_pl()) {
+            return;
+        }
+
+        // Realizar consultas para recuperar reglas específicos
+        Query q1 = new Query("necesita_cuarentena(Persona)");
+        Map<String, Term>[] res = q1.allSolutions();
+
+        for(int i = 0; i < res.length; i++) {
+            Term persona1 = res[i].get("Persona");
+            System.out.println("Persona que necesita cuarentena: " + persona1.toString());
+        }
+
+    }
+
+    public void puede_salir_de_cuarentena() {
+        // Inicializa conexion por medio de JPL
+        if(!conexion_pl()) {
+            return;
+        }
+
+        // Realizar consultas para recuperar reglas específicos
+        Query q1 = new Query("puede_salir_de_cuarentena(Persona)");
+        Map<String, Term>[] res = q1.allSolutions();
+
+        for(int i = 0; i < res.length; i++) {
+            Term persona1 = res[i].get("Persona");
+            System.out.println("Persona que puede salir de cuarentena: " + persona1.toString());
+        }
+
+    }
+
+    public void spread_disease() {
+
+        // Inicializa conexion por medio de JPL
+        if(!conexion_pl()) {
+            return;
+        }
+
+        // Realizar consultas para recuperar reglas específicos
+        Query q1 = new Query("spread_disease(Persona1, Persona2)");
+        Map<String, Term>[] res1 = q1.allSolutions();
+
+        for (int i = 0; i < res1.length; i++) {
+            Term persona1 = res1[i].get("Persona1");
+            Term persona2 = res1[i].get("Persona2");
+            System.out.println(persona1.toString() + " contagio a " + persona2.toString());
+        }
+    }
 }
