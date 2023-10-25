@@ -74,6 +74,11 @@ puede_contagiar(Persona1, Persona2) :-
     tiene_dificultad_respirar(Persona1).
 
 
+en_cuarentena_por_sintomas(Persona) :-
+    esta_infectado(Persona),
+    (tiene_fiebre(Persona); tiene_tos(Persona); tiene_dificultad_respirar(Persona)),
+    esta_en_cuarentena(Persona).
+
 
 % Regla que supervisa si una persona tiene un contacto directo con
 % alguien infectado

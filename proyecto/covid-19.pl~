@@ -25,6 +25,14 @@ primera_dosis(laura).
 segunda_dosis(carlos).
 segunda_dosis(laura).
 
+%Hechos de personas que se realizaron la prueba del covid
+prueba_covid(maria).
+prueba_covid(carlos).
+prueba_covid(julio).
+prueba_covid(laura).
+
+
+
 % Hechos de pruebas de COVID-19
 resultado_prueba_covid(maria, positivo).
 resultado_prueba_covid(carlos, negativo).
@@ -64,6 +72,14 @@ puede_contagiar(Persona1, Persona2) :-
     tiene_fiebre(Persona1),
     tiene_tos(Persona1),
     tiene_dificultad_respirar(Persona1).
+
+
+en_cuarentena_por_sintomas(Persona) :-
+    esta_infectado(Persona),
+    tiene_tos(Persona),
+    tiene_fiebre(Persona),
+    tiene_dificultad_respirar(Persona),
+    esta_en_cuarentena(Persona).
 
 
 
