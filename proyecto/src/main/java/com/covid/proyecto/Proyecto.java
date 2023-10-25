@@ -33,17 +33,14 @@ public class Proyecto {
         System.out.println("Consultas:");
         //Personas que contagiaron a otra
         regla.contagiar();
-        
-        //Persona que esta en cuarenta
-        regla.cuarentena();
+  
         
         //Personas que han tenido contacto con otras
         regla.contacto();
         
         
         regla.contagiar_indirectamente();
-        
-        regla.cuarentena_por_contacto();
+    
         
         
         System.out.println("Consultas de las vacunas:");

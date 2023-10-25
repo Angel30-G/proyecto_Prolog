@@ -75,28 +75,6 @@ public class reglas {
 
     }
      
-         public void cuarentena() {
-         
-          // Inicializa JPL
-        String[] jplArgs = {"-g", "true"};
-        org.jpl7.JPL.init(jplArgs);
-
-        // Cargar el archivo Prolog
-        Query loadQuery = new Query("consult('covid-19.pl')");
-   
-
-        // Realizar consultas para recuperar reglas específicos
-        Query q1 = new Query("esta_en_cuarentena_por_contacto(Persona)");
-        Map<String, Term>[] res2 = q1.allSolutions();
-
-        for (int i = 0; i < res2.length; i++) {
-            Term persona1 = res2[i].get("Persona");
-            System.out.println("Esta persona esta en cuarentena: " + persona1.toString());
-        }
-
-        
-
-    }
          
         public void contacto() {
          
@@ -144,29 +122,7 @@ public class reglas {
         
 
     }
-        
-        
-       public void cuarentena_por_contacto() {
-         
-          // Inicializa JPL
-        String[] jplArgs = {"-g", "true"};
-        org.jpl7.JPL.init(jplArgs);
-
-        // Cargar el archivo Prolog
-        Query loadQuery = new Query("consult('covid-19.pl')");
- 
-        // Realizar consultas para recuperar reglas específicos
-        Query q1 = new Query("esta_en_cuarentena_por_contacto(Persona)");
-        Map<String, Term>[] res3 = q1.allSolutions();
-
-        for (int i = 0; i < res3.length; i++) {
-            Term persona1 = res3[i].get("Persona1");
-            System.out.println("Se encuentra en cuarentena por contacto con un contagiado " + persona1.toString());
-        }
-
-        
-
-    }
+       
         
    
        

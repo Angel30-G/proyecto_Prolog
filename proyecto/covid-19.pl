@@ -25,6 +25,14 @@ primera_dosis(laura).
 segunda_dosis(carlos).
 segunda_dosis(laura).
 
+%Hechos de personas que se realizaron la prueba del covid
+prueba_covid(maria).
+prueba_covid(carlos).
+prueba_covid(julio).
+prueba_covid(laura).
+
+
+
 % Hechos de pruebas de COVID-19
 resultado_prueba_covid(maria, positivo).
 resultado_prueba_covid(carlos, negativo).
