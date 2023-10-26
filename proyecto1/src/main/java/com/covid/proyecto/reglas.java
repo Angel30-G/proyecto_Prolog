@@ -26,7 +26,7 @@ public class reglas {
         // Cargar el archivo Prolog
         Query loadQuery = new Query("consult('covid-19.pl')");
         if (loadQuery.hasSolution()) {
-            System.out.println("Archivo Prolog cargado correctamente.");
+            //System.out.println("Archivo Prolog cargado correctamente.");
             return true;
         } else {
             System.out.println("Error al cargar el archivo Prolog.");
@@ -34,7 +34,7 @@ public class reglas {
         }
     }
 
-    public void infectado() {
+    public void persona_infectada() {
         
         String[] jplArgs = {"-g", "true"};
         org.jpl7.JPL.init(jplArgs);
@@ -57,7 +57,7 @@ public class reglas {
         }
     }
         
-    public void contagiar() {
+    public void puede_contagiar() {
 
         // Inicializa conexion por medio de JPL
         if(!conexion_pl()) {
@@ -74,9 +74,42 @@ public class reglas {
             System.out.println("puede_contagiar: " + persona1.toString() + " a " + persona2.toString());
         }
     }
-     
+
+    public void en_cuarentena_por_sintomas() {
+        // Inicializa conexion por medio de JPL
+        if(!conexion_pl()) {
+            return;
+        }
+
+        // Realizar consultas para recuperar reglas específicos
+        Query q1 = new Query("en_cuarentena_por_sintomas(Persona)");
+        Map<String, Term>[] res = q1.allSolutions();
+
+        for(int i = 0; i < res.length; i++) {
+            Term persona1 = res[i].get("Persona");
+            System.out.println("Persona en cuarentena por sintomas: " + persona1.toString());
+        }
+
+    }
+
+    public void tiene_sintomas_graves() {
+        // Inicializa conexion por medio de JPL
+        if(!conexion_pl()) {
+            return;
+        }
+
+        // Realizar consultas para recuperar reglas específicos
+        Query q1 = new Query("tiene_sintomas_graves(Persona)");
+        Map<String, Term>[] res = q1.allSolutions();
+
+        for(int i = 0; i < res.length; i++) {
+            Term persona1 = res[i].get("Persona");
+            System.out.println("Persona con sintomas graves: " + persona1.toString());
+        }
+
+    }
          
-    public void contacto() {
+    public void es_contacto_estrecho() {
 
         // Inicializa conexion por medio de JPL
         if(!conexion_pl()) {
@@ -95,7 +128,7 @@ public class reglas {
     }
         
         
-    public void contagiar_indirectamente() {
+    public void puede_contagiar_indirectamente() {
 
         // Inicializa conexion por medio de JPL
         if(!conexion_pl()) {
